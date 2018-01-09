@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>	
+    <div th:fragment="header-css">
+        <!-- this is header-css -->        
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+              href="../../css/bootstrap.min.css" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </div>
+</head>
+<body>
+<!-- 
+<div th:fragment="header">
+    <div class="alert alert-info" th:unless="${#httpServletRequest.remoteUser} == null">
+    	<a th:href="@{/}" class="btn btn-primary" style="display:inline-block">Home</a>
+    	<a th:href="@{/admin}" class="btn btn-primary" style="display:inline-block" sec:authorize="hasRole('ROLE_ADMIN')">Dashboard</a>
+    	<a th:href="@{/vote/results}" class="btn btn-primary" style="display:inline-block" sec:authorize="hasRole('ROLE_ADMIN')">Vote Results</a>
+	    <form th:action="@{/logout}" method="post" style="display:inline-block" class="pull-right">
+	      	<label th:inline="text">Hi [[${#httpServletRequest.remoteUser}]]</label>
+	      	<button type="submit" class="btn btn-danger">Log Out</button>
+	    </form>     
+    </div>
+    
+    <div th:if="${#httpServletRequest.remoteUser} == null">
+		<br/>    
+    </div>    
+</div>
+ -->
+
+</body>
+</html>
