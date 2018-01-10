@@ -13,4 +13,11 @@ public class MainController {
 	{
 		return new ModelAndView("index");
 	}
+	
+	@RequestMapping(value="/home")
+	public ModelAndView home()
+	{
+		return new ModelAndView("home");
+	}
+	
 }
