@@ -31,6 +31,8 @@ public class NumberGroup {
     @JoinColumn(name="ticket_id", nullable=false)
 	private Ticket ticket;
 	
+	private boolean isPowerplay;
+	
 	@NotNull
 	private Integer number1;
 	
@@ -63,6 +65,14 @@ public class NumberGroup {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}	
+	
+	public boolean getIsPowerplay() {
+		return isPowerplay;
+	}
+
+	public void setIsPowerplay(boolean isPowerplay) {
+		this.isPowerplay = isPowerplay;
 	}
 
 	public Integer getNumber1() {

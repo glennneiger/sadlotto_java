@@ -26,8 +26,6 @@ public class Ticket implements Comparable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ticket_id")
 	private long id;
-
-	private boolean isPowerplay;
 	
 	@OneToOne
     @JoinColumn(name="purchase_user_id", referencedColumnName="user_id")
@@ -37,6 +35,9 @@ public class Ticket implements Comparable {
 		
 	@OneToMany(targetEntity=NumberGroup.class, mappedBy="ticket", fetch=FetchType.LAZY)
 	private List<NumberGroup> numberGroups;
+	
+	@OneToMany(targetEntity=Transaction.class, mappedBy="ticket", fetch=FetchType.LAZY)
+	private List<Transaction> transactions;
 
 	public long getId() {
 		return id;
@@ -44,14 +45,6 @@ public class Ticket implements Comparable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public boolean getIsPowerplay() {
-		return isPowerplay;
-	}
-
-	public void setIsPowerplay(boolean isPowerplay) {
-		this.isPowerplay = isPowerplay;
 	}
 
 	public User getPurchaseUser() {
@@ -76,6 +69,14 @@ public class Ticket implements Comparable {
 
 	public void setNumberGroups(List<NumberGroup> numberGroups) {
 		this.numberGroups = numberGroups;
+	}	
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 	@Override

@@ -1,109 +1,177 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments/header :: header-css"></div>
-    <script th:src="@{/js/tickets/ticket.js}"></script>
+<div th:replace="fragments/header :: header-css"></div>
+<script th:src="@{/js/tickets/ticket.js}"></script>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header"></div>
 
-<form th:action="@{/ticket/create}" th:method="post" th:object="${ticket}" id="ticket-form">
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-lg-12">
-			
-				<div class="row">	  
-					<div class="col-lg-9">
-						<h1 class="display-4">New ticket entry</h1>
+	<form th:action="@{/ticket/create}" th:method="post"
+		th:object="${ticket}" id="ticket-form">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-9">
+							<h1 class="display-4">New ticket entry</h1>
+						</div>
+						<div class="col-lg-3"></div>
 					</div>
-			    	<div class="col-lg-3">
-			    		
-			    	</div>	  
-			    </div>
-			
-		</div>		
-	</div>
-		
-	
-		<div class="row">
-		
-			<div class="col-lg-3">
-				<div class="card">
-					<h5 class="card-header">General</h5>
-					<div class="card-body">				    
-					    
+				</div>
+			</div>
+
+			<div class="row mt-2">
+				<div class="col-lg-2 col-sm-12">
+					<div class="card">
+						<h5 class="card-header">General</h5>
+						<div class="card-body">
+
 							<div class="form-group">
-					    		<label for="purchaser">Purchaser</label>
-					    		<select class="form-control" th:field="*{purchaseUser}" >
-					    			<option th:each="user : ${users}" th:text="${user.firstName}" th:value="${user.id}"></option>
-					    		</select>
-					  		</div>
-					  		<div class="form-group">
-					    		<label for="purchase-date">Purchase Date</label>
-					    		<input type="text" class="form-control" th:field="*{purchaseDate}"></input>
-					  		</div>
+								<label for="purchaser">Purchaser</label> 
+								<select
+									class="form-control" th:field="*{purchaseUser}">
+									<option th:each="user : ${users}" th:text="${user.firstName}"
+										th:value="${user.id}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="purchase-date">Purchase Date</label> <input
+									type="text" class="form-control" th:field="*{purchaseDate}"></input>
+							</div>
+							<!-- 
 					  		<div class="form-check">
 							  <input class="form-check-input" type="checkbox" value="" th:field="*{isPowerplay}"></input>
 							  <label class="form-check-label" for="defaultCheck1">
 							    Powerplay
 							  </label>
 							</div>
-						    
+						     -->
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-9">
-				<div class="card">
-					<div class="card-header">
-						<h5>Numbers</h5>
-						<button type="button" class="btn btn-outline-success btn-sm add-button">Add</button>
+				<div class="col-lg-10 col-sm-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-lg-11">
+									<h5>Numbers</h5>
+								</div>
+								<div class="col-lg-1">
+									<button type="button"
+										class="btn btn-outline-success btn-sm add-button float-right">Add</button>	
+								</div>					
+							
+							</div>
+							
+						</div>
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>4</th>
+									<th>5</th>
+									<th>6</th>
+									<th>Powerplay</th>
+									<th>Cost</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>							
+								<tr th:each="numberGroup,i : ${ticket.numberGroups}"
+									class="number-group-table-row"
+									th:id="'number-group-table-row-' + ${i.index}"
+									th:style="${i.index} == 0 ? '' : 'display:none;'">
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number1}"></input></td>
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number2}"></input></td>
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number3}"></input></td>
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number4}"></input></td>
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number5}"></input></td>
+									<td class=""><input class="form-control" name="numberGroup"
+										th:field="*{numberGroups[__${i.index}__].number6}"></input></td>
+									<td class=""><input type="checkbox" name="numberGroup" value=""
+										th:field="*{numberGroups[__${i.index}__].isPowerplay}"></input></td>
+									<td class="">
+										<div class="input-group mb-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input type="text" class="form-control"
+												id="inlineFormInputGroup" />
+										</div>
+									</td>
+									<td class="">
+										<button type="button"
+											class="btn btn-outline-danger btn-sm remove-button">Remove</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<table class="table table-sm">
-						<tr>
-							<th>1</th>
-							<th>2</th>
-							<th>3</th>
-							<th>4</th>
-							<th>5</th>
-							<th>6</th>							
-							<th>Cost</th>
-							<th></th>
-						</tr>
-						<tr th:each="numberGroup,i : ${ticket.numberGroups}" class="number-group-table-row" th:id="'number-group-table-row-' + ${i.index}" th:style="${i.index} == 0 ? '' : 'display:none;'">
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number1}"></input></td>
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number2}"></input></td>
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number3}"></input></td>
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number4}"></input></td>
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number5}"></input></td>
-							<td><input class="form-control" name="numberGroup" th:field="*{numberGroups[__${i.index}__].number6}"></input></td>
-							<td>
-								<div class="input-group mb-2">
-						        	<div class="input-group-prepend">
-						          		<div class="input-group-text">$</div>
-						        	</div>
-						        	<input type="text" class="form-control" id="inlineFormInputGroup"/>
-						      	</div>						    
-						    </td>
-							<td>
-								<button type="button" class="btn btn-outline-danger btn-sm remove-button">Remove</button>
-							</td>
-						</tr>
-					</table>					
+				</div>
+				
+
+			</div>
+			<div class="row mt-2">
+				<div class="col-lg-12 col-sm-12">
+					<div class="card">
+						<h5 class="card-header">Transactions</h5>
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Participant</th>
+									<th>Transaction Type</th>
+									<th>Amount</th>
+									<th>Comment</th>		
+								</tr>
+							</thead>
+							<tbody>								
+								<tr th:each="transaction,i : ${ticket.transactions}">
+									<td><input type="checkbox" class="powerplay-checkbox" value=""></input></td>
+									<td th:text="*{transactions[__${i.index}__].toUser.firstName}"></td>
+									<td>
+										<select class="form-control" th:field="*{transactions[__${i.index}__].transactionType}" >
+											<option th:each="transactionType : ${transactionTypes}" 
+													th:text="${transactionType.transactionName}" 
+													th:value="${transactionType.id}"></option>
+										</select>
+									</td>
+									<td class="">
+										<div class="input-group mb-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input type="text" class="form-control"
+												id="inlineFormInputGroup" />
+										</div>
+									</td>
+									<td><input class="form-control" type="text" th:text="*{transactions[__${i.index}__].comment}"></input></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
 				</div>
 			</div>
-			
+			<div class="row mt-2 float-right">
+				<div class="col-lg-12">
+					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+					<button type="button" class="btn btn-outline-primary btn-lg">Cancel</button>
+				</div>
+
+			</div>
 		</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-			<button type="button" class="btn btn-outline-primary btn-lg">Cancel</button>
-		</div>
-		
-	</div>
-</div>
-	
-	</form>	
+
+	</form>
 
 </body>
 </html>
